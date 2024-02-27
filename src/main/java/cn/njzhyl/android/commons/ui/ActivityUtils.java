@@ -1,28 +1,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//    Copyright (c) 2022 - 2024.
-//    Haixing Hu, Qubit Co. Ltd.
+//    Copyright (c) 2017 - 2024.
+//    Nanjing Smart Medical Investment Operation Service Co. Ltd.
 //
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package ltd.qubit.android.util;
+package cn.njzhyl.android.commons.ui;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class ActivityUtils {
 
@@ -51,11 +40,11 @@ public class ActivityUtils {
             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
   }
 
-  public static boolean checkPermission(final Context context,
-      final String permission) {
-    final int result = ContextCompat.checkSelfPermission(context, permission);
-    return (result == PackageManager.PERMISSION_GRANTED);
-  }
+  // public static boolean checkPermission(final Context context,
+  //     final String permission) {
+  //   final int result = ContextCompat.checkSelfPermission(context, permission);
+  //   return (result == PackageManager.PERMISSION_GRANTED);
+  // }
 
   // public static boolean checkPermission(final Context context,
   //     final String permission, final boolean tryRequest) {
@@ -70,20 +59,20 @@ public class ActivityUtils {
   //
   // }
 
-  public static void shutdownApplication(final Activity activity) {
-    final Intent intent = new Intent (activity, QuitApplicationActivity.class);
-    intent.setFlags(FLAG_ACTIVITY_NEW_TASK
-        | FLAG_ACTIVITY_CLEAR_TASK
-        | FLAG_ACTIVITY_CLEAR_TOP);
-    activity.startActivity(intent);
-    activity.finish();
-  }
+  // public static void shutdownApplication(final Activity activity) {
+  //   final Intent intent = new Intent (activity, QuitApplicationActivity.class);
+  //   intent.setFlags(FLAG_ACTIVITY_NEW_TASK
+  //       | FLAG_ACTIVITY_CLEAR_TASK
+  //       | FLAG_ACTIVITY_CLEAR_TOP);
+  //   activity.startActivity(intent);
+  //   activity.finish();
+  // }
 
-  private static class QuitApplicationActivity extends AppCompatActivity {
-    @Override
-    protected void onCreate(final Bundle savedInstanceState) {
-      super.onCreate(savedInstanceState);
-      finish();
-    }
-  }
+  // private static class QuitApplicationActivity extends AppCompatActivity {
+  //   @Override
+  //   protected void onCreate(final Bundle savedInstanceState) {
+  //     super.onCreate(savedInstanceState);
+  //     finish();
+  //   }
+  // }
 }

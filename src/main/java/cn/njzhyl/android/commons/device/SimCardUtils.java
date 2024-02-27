@@ -1,12 +1,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//    Copyright (c) 2022 - 2024.
-//    Haixing Hu, Qubit Co. Ltd.
+//    Copyright (c) 2017 - 2024.
+//    Nanjing Smart Medical Investment Operation Service Co. Ltd.
 //
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package ltd.qubit.android.util;
+package cn.njzhyl.android.commons.device;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,12 +18,53 @@ import android.telephony.TelephonyManager;
 import cn.njzhyl.model.contact.Location;
 import cn.njzhyl.model.contact.Phone;
 import cn.njzhyl.model.device.DataNetworkType;
+import cn.njzhyl.model.device.SimCard;
 import cn.njzhyl.model.device.SimCardStatus;
 import cn.njzhyl.model.util.Info;
 
 public class SimCardUtils {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SimCardUtils.class);
+
+  /**
+   * 获取此设备的 SIM 卡信息。
+   *
+   * @param context
+   *     此应用的上下文。
+   * @return
+   *     此设备的 SIM 卡信息，或{@code null}若此设备不支持SIM卡。
+   */
+  public static SimCard getSimCardInfo(final Context context) {
+    final TelephonyManager tm = getTelephonyManager(context);
+    if (tm == null) {
+      LOGGER.warn("No telephony service in the system.");
+      return null;
+    } else {
+      return getSimCardInfo(tm);
+    }
+  }
+
+  /**
+   * 获取此设备的 SIM 卡信息。
+   *
+   * @param tm
+   *     此设备的 TelephonyManager。
+   * @return
+   *     此设备的 SIM 卡信息，或{@code null}若此设备不支持SIM卡。
+   */
+  public static SimCard getSimCardInfo(final TelephonyManager tm) {
+    final SimCard simCard = new SimCard();
+    simCard.setStatus(getStatus(tm));
+    simCard.setIccid(getIccid(tm));
+    simCard.setImei(getImei(tm));
+    simCard.setPhone(getPhoneNumber(tm));
+    simCard.setOperator(getOperator(tm));
+    simCard.setCountry(getCountryInfo(tm));
+    simCard.setNetworkType(getNetworkType(tm));
+    simCard.setStatus(getStatus(tm));
+    simCard.setLocation(getLocation(tm));
+    return simCard;
+  }
 
   /**
    * 获取此设备的 TelephonyManager。
